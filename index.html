@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#FFF6E5" />
+  <title>عيد ميلاد سعيد 🎂</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400;500;600;700;800&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Floating mute control -->
+  <button type="button" id="sound-toggle" class="sound-fab" aria-label="كتم الصوت" title="الصوت">
+    <span class="sound-on" aria-hidden="true">🔊</span>
+    <span class="sound-off" aria-hidden="true" hidden>🔇</span>
+  </button>
+
+  <!-- Confetti canvas -->
+  <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+  <!-- ===== INTRO ===== -->
+  <div id="intro" class="intro" role="dialog" aria-modal="true" aria-labelledby="intro-title">
+    <div class="intro-card">
+      <p class="intro-sparkle" aria-hidden="true">✨💗✨</p>
+      <h1 id="intro-title" class="intro-title">عيد ميلاد سعيد</h1>
+      <p class="intro-sub">لولي سوت لك مفاجأة صغيرة… جاهز؟</p>
+      <button type="button" id="btn-start" class="btn btn-primary btn-xl">
+        ابدأ المفاجأة 🎁
+      </button>
+      <button type="button" id="btn-music-intro" class="btn btn-ghost">
+        <span data-music-label>تشغيل الموسيقى 🎵</span>
+      </button>
+      <p class="intro-hint">الصوت اختياري ولن يعمل إلا بعد تفاعلك</p>
+    </div>
+  </div>
+
+  <!-- ===== MAIN EXPERIENCE ===== -->
+  <main id="app" class="app" hidden>
+    <div class="page-shell">
+
+      <!-- Card 1: greeting -->
+      <section class="card card-sky reveal" id="section-greeting" aria-label="بطاقة التهنئة">
+        <div class="card-inner cream">
+          <div class="greeting-grid">
+            <div class="photo-frame">
+              <img src="assets/couple-art.png" alt="رسمة رومانسية" class="photo-art" />
+            </div>
+            <div class="greeting-copy">
+              <p class="greeting-text">
+                هلا والله لولي سوت لك هديه ليوم ميلادك<br />
+                مبروك بتصير كبيررر!! &gt;_&lt;
+              </p>
+              <div class="accept-row">
+                <button type="button" id="btn-accept" class="btn btn-accept">اقبل !</button>
+                <button type="button" id="btn-decline" class="btn btn-decline">مابي !</button>
+              </div>
+              <p id="decline-tease" class="decline-tease" hidden>(سلامات مابي ؟؟)</p>
+              <span class="star-deco" aria-hidden="true">★</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Card 2: cake & candles (core experience) -->
+      <section class="card card-sky reveal" id="section-cake" aria-label="كعكة عيد الميلاد" hidden>
+        <div class="card-inner cream cake-panel">
+          <p class="cake-prompt">انا الكيك حقك انفخ الشمعه يلا !</p>
+
+          <div class="cake-stage" id="cake-stage">
+            <img src="assets/cake-hero.png" alt="صورة مع كعكة وشموع ١٨" class="cake-img" />
+
+            <div class="flame flame-1" data-flame aria-hidden="true">
+              <span class="flame-core"></span>
+              <span class="flame-glow"></span>
+            </div>
+            <div class="flame flame-2" data-flame aria-hidden="true">
+              <span class="flame-core"></span>
+              <span class="flame-glow"></span>
+            </div>
+
+            <div class="smoke smoke-1" aria-hidden="true"></div>
+            <div class="smoke smoke-2" aria-hidden="true"></div>
+          </div>
+
+          <div class="cake-controls">
+            <button type="button" id="btn-wish" class="btn btn-pill">تمنَّ أمنية ✨</button>
+            <p id="wish-hint" class="wish-hint" hidden>خذ نفسًا عميقًا… واستعد لإطفاء الشمعة 🤍</p>
+            <button type="button" id="btn-blow" class="btn btn-primary" hidden>انفخ الشمعة 🎂</button>
+            <p id="mic-status" class="mic-status" hidden></p>
+            <button type="button" id="btn-relight" class="btn btn-ghost" hidden>أعد إشعال الشمعة 🔥</button>
+            <p id="wish-done" class="wish-done" hidden>أمنيتك صارت بينك وبين السماء 🤍</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Card 3: scrapbook collage + surprise buttons -->
+      <section class="card card-sky reveal" id="section-scrapbook" aria-label="كولاج الذكريات" hidden>
+        <div class="card-inner cream scrapbook">
+          <div class="scrap-top">
+            <div class="scrap-photo-wrap">
+              <div class="scrap-photo">
+                <img src="assets/boy-photo.png" alt="صورة من الطفولة" />
+              </div>
+              <div class="photo-ribbon" aria-hidden="true">
+                <span class="ribbon-loop left"></span>
+                <span class="ribbon-knot"></span>
+                <span class="ribbon-loop right"></span>
+                <span class="ribbon-tail left"></span>
+                <span class="ribbon-tail right"></span>
+              </div>
+              <img src="assets/sticker-cookie.png" class="sticker s-cookie" alt="" />
+            </div>
+            <div class="sticker-field" aria-hidden="true">
+              <img src="assets/sticker-a.png" class="sticker s-a" alt="" />
+              <img src="assets/sticker-z.png" class="sticker s-z" alt="" />
+              <img src="assets/sticker-i.png" class="sticker s-i" alt="" />
+              <img src="assets/sticker-z.png" class="sticker s-z2" alt="" />
+              <img src="assets/sticker-spark.png" class="sticker s-spark" alt="" />
+              <img src="assets/sticker-spiral.png" class="sticker s-spiral" alt="" />
+              <img src="assets/sticker-heart.png" class="sticker s-heart" alt="" />
+            </div>
+          </div>
+
+          <div class="scrap-mid">
+            <img src="assets/couple-sticker.png" class="couple-sticker" alt="ملصق الزوجين" />
+          </div>
+
+          <div class="action-stack">
+            <button type="button" class="btn btn-pill" data-action="envelope">افتح رسالتك 💌</button>
+            <button type="button" class="btn btn-pill" data-action="gift">اضغط هنا للمفاجأة 🎁</button>
+            <button type="button" class="btn btn-pill" data-action="burst">اضغطني 🩷</button>
+            <button type="button" class="btn btn-pill" data-action="compliments">اضغط لتعرف قد إيش أنت مميز ✨</button>
+            <button type="button" class="btn btn-pill btn-soft" data-action="scroll-message">إلى الرسالة 💗</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Card 4: main message -->
+      <section class="card card-sky reveal" id="section-message" aria-label="رسالة عيد الميلاد" hidden>
+        <div class="card-inner cream message-panel">
+          <div class="hearts-orbit" aria-hidden="true" id="hearts-orbit"></div>
+          <h2 class="msg-title" id="msg-title">كل عام وانت بخير ياحبيبي</h2>
+          <p id="msg-placeholder" class="msg-placeholder">اطفئ الشمعة أولًا… والرسالة تنتظرك 🤍</p>
+          <div class="msg-body" id="msg-body" aria-live="polite"></div>
+          <div class="msg-actions">
+            <button type="button" id="btn-show-full" class="btn btn-ghost">إظهار الرسالة كاملة</button>
+            <button type="button" id="btn-extra-note" class="btn btn-pill">رسالة أخرى لك 💌</button>
+          </div>
+          <p id="extra-note" class="extra-note" hidden></p>
+          <button type="button" class="btn btn-soft" data-action="restart">أعد اللحظة 🎂</button>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Envelope modal -->
+  <div id="modal-envelope" class="modal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-sheet envelope-sheet" role="dialog" aria-labelledby="env-title">
+      <div class="envelope" id="envelope">
+        <div class="envelope-flap"></div>
+        <div class="envelope-body"></div>
+        <div class="envelope-letter">
+          <h3 id="env-title">رسالتي لك</h3>
+          <p>حتى لو بعدت الدنيا… قلبي يفضل يختارك كل يوم من جديد. عيد ميلاد سعيد يا حبيبي 💗</p>
+        </div>
+      </div>
+      <button type="button" class="btn btn-ghost" data-close>إغلاق</button>
+    </div>
+  </div>
+
+  <!-- Gift modal -->
+  <div id="modal-gift" class="modal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-sheet" role="dialog" aria-labelledby="gift-title">
+      <div class="gift-box" id="gift-box">
+        <div class="gift-lid"></div>
+        <div class="gift-body"></div>
+        <div class="gift-bow"></div>
+      </div>
+      <div id="gift-reveal" class="gift-reveal" hidden>
+        <h3 id="gift-title">مفاجأتك 🎁</h3>
+        <p>وعد صغير مني: راح أكون جنبك في كل سنة جديدة… وأحتفل فيك أكثر من أي يوم ثاني 🤍</p>
+      </div>
+      <button type="button" id="btn-open-gift" class="btn btn-primary">افتح الهدية</button>
+      <button type="button" class="btn btn-ghost" data-close>إغلاق</button>
+    </div>
+  </div>
+
+  <!-- Compliments modal -->
+  <div id="modal-compliments" class="modal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-sheet" role="dialog" aria-labelledby="comp-title">
+      <h3 id="comp-title">قد إيش أنت مميز ✨</h3>
+      <p id="compliment-text" class="compliment-text"></p>
+      <button type="button" id="btn-next-compliment" class="btn btn-pill">الجملة الجاية</button>
+      <button type="button" class="btn btn-ghost" data-close>إغلاق</button>
+    </div>
+  </div>
+
+  <!-- Burst hearts layer -->
+  <div id="burst-layer" class="burst-layer" aria-hidden="true"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
